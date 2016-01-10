@@ -1,52 +1,64 @@
-# Build settings
-permalink   : /blog/:year/:title/
-markdown    : kramdown
-highlighter : pygments
+# Harmony Jekyll theme general configurations 
 
-paginate: 3
-paginate_path: "/blog/page/:num/"
-comments: true
+# Base URL
+baseurl: /harmony
 
-source: source
-destination: _site
+# Site live URL
+url: http://gayan.me
+
+# Localhost 
+# url: http://127.0.0.1:4000  
+
+# Harmony theme configuration. Please change accordingly.
+harmony:
+  name: Harmony
+  # Little description about your site
+  description: Harmony is free responsive jekyll theme.
+  # 'meta_description:' Write an awesome description for your new site here.
+  # It will appear in your document head meta (for Google search results) and 
+  # in your feed.xml site description.
+  meta_description: > # 
+   Harmony is a free responsive jekyll theme by Gayan Virajith
+   and Maheshika Lakmali. Sourced on Github - 
+   https://github.com/gayanvirajith/harmony
+  basetheme: theme-base-01 # pre defined thmes are darken, blue-water, redish.
+  author: # Author details
+    name: Gayan Virajith
+    email: gayanvirajith@gmail.com
+    url: http://gayanvirajith.github.io
+
+  # Google Analytics key, leave blank to ignore
+  google_analytics_key: UA-xxxx-x
+
+  # Profile links, leave blank to ignore
+  social: 
+    github: gayanvirajith
+    twitter: gayanvirajith
+    facebook: gayanvirajith
+    gplus: +GayanVirajith
+    dribble: gayan
+    pinterest: 
+  # Toggle disclaimer in footer
+  show_disclaimer: true
+
+# Conversion / Build settings 
+markdown:    kramdown
+# This is how you put pygments config in jekyll 2.0 instead of pygments: true
+highlighter: pygments 
+
+# Permalinks
+permalink:        pretty
+
+exclude: 
+  - CNAME
+  - Gemfile
+  - Rakefile
+  - README.md
+  - .gitignore
+  - .sass-cache
+  - Gemfile.lock
+
+# Sass conversion configs
 sass:
-  sass_dir: _scss
-  style: compressed # expanded
-
-# SEO settings
-title: end2end
-description: "A free Jekyll theme for download"
-keywords: "Jekyll, theme, free, download, SEO, blog, web"
-url: http://nandomoreira.me
-baseurl: "/end2end"
-# baseurl: ""
-
-# google_analytics: UA-52446115-1
-repo: http://github.com/nandomoreirame/end2end
-disqus_shortname: "fernandomoreira"
-
-# Author settings
-author:
-  name      : Fernando Moreira
-  job       : Frontend Engineer
-  bio       : "Enthusiast performance, responsive design and usability, always looking for the best project and good coffee."
-  thumb     : /images/author.jpg
-  email     : nandomoreira.me@gmail.com
-  url       : http://nandomoreira.me
-  github    : http://github.com/nandomoreirame
-  twitter   : http://twitter.com/nandomoreirame
-  facebook  : http://facebook.com/fernando.dev
-  linkedin  : http://linkedin.com/in/nandomoreirame
-
-# navbar pages
-navbar:
-  - slug: about
-    title: About
-  # - slug: resume
-  #   title: Resume
-  # - slug: skills
-  #   title: Skills
-  - slug: blog
-    title: Blog
-
-exclude: ["gulp", "node_modules", "bower", "bower_components", "config.rb", "src", "Gemfile", "Gemfile.lock", ".rvmrc", ".rbenv-version", "package.json", "gulpfile.js", "README.md", "Rakefile", "changelog.md"]
+    sass_dir: assets/css/_sass
+    style: :compressed
