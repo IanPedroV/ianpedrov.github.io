@@ -1,65 +1,64 @@
-permalink   : /:title/
-markdown    : kramdown
-highlighter : pygments
+# Harmony Jekyll theme general configurations 
 
-paginate: 12
-comments: true
-paginate_path: "/blog/page/:num/"
+# Base URL
+baseurl: /harmony
 
-gems:
-  - jekyll-paginate
+# Site live URL
+url: http://gayan.me
 
-baseurl: null
-domain_name: nandomoreira.me
-google_analytics: UA-52446115-1
+# Localhost 
+# url: http://127.0.0.1:4000  
 
-source:      source
-destination: _site
+# Harmony theme configuration. Please change accordingly.
+harmony:
+  name: Harmony
+  # Little description about your site
+  description: Harmony is free responsive jekyll theme.
+  # 'meta_description:' Write an awesome description for your new site here.
+  # It will appear in your document head meta (for Google search results) and 
+  # in your feed.xml site description.
+  meta_description: > # 
+   Harmony is a free responsive jekyll theme by Gayan Virajith
+   and Maheshika Lakmali. Sourced on Github - 
+   https://github.com/gayanvirajith/harmony
+  basetheme: theme-base-01 # pre defined thmes are darken, blue-water, redish.
+  author: # Author details
+    name: Gayan Virajith
+    email: gayanvirajith@gmail.com
+    url: http://gayanvirajith.github.io
 
-itemtype: WebPage
-cover: /assets/images/facebook.png
+  # Google Analytics key, leave blank to ignore
+  google_analytics_key: UA-xxxx-x
 
-# site title, description, keywords
-name: Fernando Moreira
-title: Fernando Moreira • Desenvolvedor web e Front-end
-description: "Desenvolvedor Front-end, Design Responsivo, HTML5, CSS3 e JavaScript"
-keywords: "site, website, loja virtual, lojas virtuais, e-commerce, wordpress, frontend, front-end, html, html5, css, css3, js, javascript, jquery, seo, otimizacao, performance"
-url: http://nandomoreira.me
-repo: http://github.com/nandomoreirame/nandomoreirame.github.io
-disqus_shortname: "fernandomoreira"
-rss_path: source/
-author:
-  name      : Fernando Moreira
-  image     : /assets/images/author.jpg
-  email     : nandomoreira.me@gmail.com
-  url       : http://nandomoreira.me
-  # facebook  : http://facebook.com/fernando.dev
-  twitter   : http://twitter.com/nandomoreirame
-  # instagram : http://instagram.com/nandomoreira.me
-  github    : http://github.com/nandomoreirame
-  linkedin  : http://linkedin.com/in/nandomoreirame
-  bio       : "Desenvolvedor Front-end entusiasta de performance, design responsivo e usabilidade, sempre em busca do melhor projeto e de um bom café."
+  # Profile links, leave blank to ignore
+  social: 
+    github: gayanvirajith
+    twitter: gayanvirajith
+    facebook: gayanvirajith
+    gplus: +GayanVirajith
+    dribble: gayan
+    pinterest: 
+  # Toggle disclaimer in footer
+  show_disclaimer: true
 
+# Conversion / Build settings 
+markdown:    kramdown
+# This is how you put pygments config in jekyll 2.0 instead of pygments: true
+highlighter: pygments 
 
-# Plugin: jekyll-assets
-assets:
-  dirname: /assets
-  baseurl: /assets/
-  sources:
-    - assets/images
-    - assets/fonts
-    - assets/css
-    - assets/js
-  cache: true
-  gzip: [ text/css, application/javascript ]
+# Permalinks
+permalink:        pretty
 
-# Compress HTML
-compress_html:
-  clippings: all
-  comments: all
-  endings: all
-  profile: false
-  ignore:
-    envs: all
+exclude: 
+  - CNAME
+  - Gemfile
+  - Rakefile
+  - README.md
+  - .gitignore
+  - .sass-cache
+  - Gemfile.lock
 
-exclude: ["gulp", "node_modules", "bower", "bower_components", "config.rb", "src", "Gemfile", "Gemfile.lock", ".rvmrc", ".rbenv-version", "package.json", "gulpfile.js", "README.md", "Rakefile", "changelog.md"]
+# Sass conversion configs
+sass:
+    sass_dir: assets/css/_sass
+    style: :compressed
