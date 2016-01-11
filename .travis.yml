@@ -22,4 +22,4 @@ branches:
   - master
   - source
 notifications:
-  email: false
+  email: true
