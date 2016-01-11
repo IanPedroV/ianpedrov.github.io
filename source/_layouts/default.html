@@ -1,27 +1,20 @@
-<!DOCTYPE html>
-<html>
+{% strip %}<!DOCTYPE html>
+<html class="no-js" lang="pt-br" itemscope itemtype="http://schema.org/{% if page.itemtype %}{{ page.itemtype }}{% else %}{{ site.itemtype }}{% endif %}">
   {% include head.html %}
-  <body>
-    <main>
-      {% include header.html %}
+  <body class="{% if page.post_class %}{{page.post_class}}{% endif %} {% if page.slug %}{{page.slug}}{% endif %}">
+    {% include header.html %}
 
-      <div class="container">
-        {{ content }}
-      </div>
-
-      {% include footer.html %}
-
-      {% include github-corner.html %}
-
-      <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-      <script>
-      $(document).ready(function() {
-        $('.sliding-panel-button,.sliding-panel-fade-screen,.sliding-panel-close').on('click touchstart',function (e) {
-          $('.sliding-panel-content,.sliding-panel-fade-screen').toggleClass('is-visible');
-          e.preventDefault();
-        });
-      });
-      </script>
+    <main class="wrapper" role="main" itemprop="mainContentOfPage">
+      {{ content }}
     </main>
+
+    {% include footer.html %}
+
+    {% include search-modal.html %}
+
+    {% javascript main %}
+    {% if page.slug == 'portfolio' %}
+      {% javascript portfolio %}
+    {% endif %}
   </body>
-</html>
+</html>{% endstrip %}

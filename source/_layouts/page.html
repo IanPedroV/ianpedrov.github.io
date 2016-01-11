@@ -1,15 +1,24 @@
 ---
 layout: default
+post_class: page-template
 ---
 
-<article role="article" class="page card">
+<article class="post" itemprop="mainContentOfPage">
 
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-  </header>
+  <div class="container">
+    <header class="post-header">
+      <h1>{{ page.title }}</h1>
+    </header>
 
-  <div class="post-content">
-    {{ content }}
+    {{content}}
   </div>
 
 </article>
+
+{% if page.slug == "error404" %}
+  <div class="posts container">
+    {% for post in site.posts limit:6 %}
+      {% include article.html %}
+    {% endfor %}
+  </div>
+{% endif %}

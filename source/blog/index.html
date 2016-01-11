@@ -1,11 +1,15 @@
 ---
 layout: default
+title: Artigos
+slug: blog
 ---
 
-<section class="post-list">
+<div class="posts container">
+
   {% for post in paginator.posts %}
     {% include article.html %}
   {% endfor %}
 
   {% include pagination.html %}
-</section>
+
+</div>

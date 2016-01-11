@@ -1,53 +1,13 @@
 # encoding: UTF-8
 require "rubygems"
-require "tmpdir"
-require "bundler/setup"
-require "jekyll"
-
-# Change your GitHub reponame
-GITHUB_REPONAME    = "nandomoreirame/end2end"
-GITHUB_REPO_BRANCH = "gh-pages"
 
 SOURCE = "source/"
-DEST   = "_site"
 CONFIG = {
-  'layouts' => File.join(SOURCE, "_layouts"),
-  'posts' => File.join(SOURCE, "_posts"),
-  'post_ext' => "md",
+  'posts'      => File.join(SOURCE, "_posts"),
+  'post_ext'   => "md",
   'categories' => File.join(SOURCE, "categories"),
-  'tags' => File.join(SOURCE, "tags")
+  'tags'       => File.join(SOURCE, "tags")
 }
-
-task default: %w[publish]
-
-desc "Generate blog files"
-task :generate do
-  Jekyll::Site.new(Jekyll.configuration({
-    "source"      => "source/",
-    "destination" => "_site",
-    "config"      => "_config.yml"
-  })).process
-end
-
-desc "Generate and publish blog to gh-pages"
-task :publish => [:generate] do
-  Dir.mktmpdir do |tmp|
-    cp_r "_site/.", tmp
-
-    pwd = Dir.pwd
-    Dir.chdir tmp
-
-    system "git init"
-    system "git checkout --orphan #{GITHUB_REPO_BRANCH}"
-    system "git add ."
-    message = "Site updated at #{Time.now.utc}"
-    system "git commit -am #{message.inspect}"
-    system "git remote add origin git@github.com:#{GITHUB_REPONAME}.git"
-    system "git push origin #{GITHUB_REPO_BRANCH} --force"
-
-    Dir.chdir pwd
-  end
-end
 
 desc "Begin a new post in #{CONFIG['posts']}"
 task :post do
@@ -126,6 +86,68 @@ task :page do
     post.puts "{% include JB/setup %}"
   end
 end # task :page
+
+
+desc "Begin a new category in #{CONFIG['categories']}"
+task :category do
+  abort("rake aborted: '#{CONFIG['categories']}' directory not found.") unless FileTest.directory?(CONFIG['categories'])
+  title = ENV["title"] || "new-category"
+  slug  = mount_slug(title)
+
+  filename = File.join(CONFIG['categories'], "category-#{slug}.html")
+  if File.exist?(filename)
+    abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
+  end
+
+  puts "Creating new category: #{filename}"
+  open(filename, 'w') do |category|
+    category.puts "---"
+    category.puts "layout: category"
+    category.puts "title: \"#{title.gsub(/-/,' ')}\""
+    category.puts "slug: #{slug}"
+    category.puts "permalink: /categoria/#{slug}/"
+    category.puts "---"
+  end
+
+  puts "Write in categories.yml file"
+  open("#{SOURCE}_data/categories.yml", 'ab+') do |category|
+    category.puts ""
+    category.puts "- slug: #{slug}"
+    category.puts "  name: #{title}"
+  end
+  puts "Successfully created!"
+end # task :category
+
+
+desc "Begin a new tag in #{CONFIG['tags']}"
+task :tag do
+  abort("rake aborted: '#{CONFIG['tags']}' directory not found.") unless FileTest.directory?(CONFIG['tags'])
+  title = ENV["title"] || "new-tag"
+  slug  = mount_slug(title)
+
+  filename = File.join(CONFIG['tags'], "tag-#{slug}.html")
+  if File.exist?(filename)
+    abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
+  end
+
+  puts "Creating new tag: #{filename}"
+  open(filename, 'w') do |tag|
+    tag.puts "---"
+    tag.puts "layout: tag"
+    tag.puts "title: \"#{title.gsub(/-/,' ')}\""
+    tag.puts "slug: #{slug}"
+    tag.puts "permalink: /tag/#{slug}/"
+    tag.puts "---"
+  end
+
+  puts "Write in tags.yml file"
+  open("#{SOURCE}_data/tags.yml", 'ab+') do |tag|
+    tag.puts ""
+    tag.puts "- slug: #{slug}"
+    tag.puts "  name: #{title}"
+  end
+  puts "Successfully created!"
+end # task :tag
 
 def mount_slug(title)
   slug = str_clean(title)
